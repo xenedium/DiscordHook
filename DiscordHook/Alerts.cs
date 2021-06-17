@@ -42,5 +42,18 @@ namespace DiscordHook
                 }
             }
         }
+
+        public static async Task<bool> CheckDiscordHook(string dshook)
+        {
+            try
+            {
+                await new HttpClient().GetStringAsync(dshook);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
