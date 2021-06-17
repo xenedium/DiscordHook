@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DiscordHook
 {
-    public abstract class Alerts
+    public static class Alerts
     {
         public static async Task<string> GetIpAsync()
         {
