@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using static DiscordHook.Alerts;
 using static DiscordHook.Utility;
+using static DiscordHook.Win32Api;
 
 namespace DiscordHook
 {
@@ -16,8 +18,6 @@ namespace DiscordHook
             }
             await SendHookAlertAsync(await GetIpAsync(), url);
             
-
-
         }
     }
 }
