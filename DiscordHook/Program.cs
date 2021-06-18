@@ -11,7 +11,9 @@ namespace DiscordHook
         private static async Task Main(string[] args)
         {
             var alerthook = await GetAlertWebHook();
+            await Task.Delay(500);
             var replyhook = await GetReplyWebHook();
+            await Task.Delay(500);
             var botToken = await GetBotToken();
             
             await SendHookAlertAsync(await GetIpAsync(), alerthook);
