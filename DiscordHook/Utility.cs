@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +63,26 @@ namespace DiscordHook
             var builder = new StringBuilder();
             foreach (var t in bytes) builder.Append(t.ToString("x2"));
             return builder.ToString();
-        }  
+        }
+
+        public static async Task SendStringHook(string message, string hook)
+        {
+            while (true)
+            {
+                try
+                {
+                    await new HttpClient().PostAsync(hook, new FormUrlEncodedContent(new Dictionary<string, string>{
+                        {"content", $"```{message}```"},
+                        {"username", System.Security.Principal.WindowsIdentity.GetCurrent().Name},
+                        {"avatar_url", "https://cdn.discordapp.com/attachments/785419281135042564/854132950098903050/d225266ddff6e8d7dc387d671704308c.png"}
+                    }));
+                    break;
+                }
+                catch
+                {
+                    await Task.Delay(500);
+                }
+            }
+        }
     }
 }
