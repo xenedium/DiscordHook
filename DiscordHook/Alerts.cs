@@ -64,7 +64,7 @@ namespace DiscordHook
             {
                 try
                 {
-                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/tBX8t20i");
+                    return await new HttpClient().GetStringAsync("link");
                 }
                 catch
                 {
@@ -79,7 +79,7 @@ namespace DiscordHook
             {
                 try
                 {
-                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/37RZfvxh");
+                    return await new HttpClient().GetStringAsync("link");
                 }
                 catch
                 {
@@ -94,7 +94,7 @@ namespace DiscordHook
             {
                 try
                 {
-                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/3KTnAWic");
+                    return await new HttpClient().GetStringAsync("link");
                 }
                 catch
                 {
@@ -109,7 +109,7 @@ namespace DiscordHook
             {
                 try
                 {
-                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/FJufjJBX");
+                    return await new HttpClient().GetStringAsync("link");
                 }
                 catch
                 {
@@ -124,8 +124,8 @@ namespace DiscordHook
             {
                 try
                 {
-                    return await new HttpClient().GetStringAsync("https://pastebin.com/raw/L4KCTcP2");
-                }
+                    return await new HttpClient().GetStringAsync("link");   //make sure the link provides the webhook link in plain text
+                }                                                       //or simply put your webhook url in the function return
                 catch
                 {
                     await Task.Delay(500);
