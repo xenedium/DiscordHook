@@ -1,4 +1,4 @@
-# DiscordHook
+# DiscordHook made by DawnOfSorrow#1977
 Repo for the reverse shell 
 
 # I am NOT RESPONSIBLE FOR ANY MISSUSE OF THIS CODE
