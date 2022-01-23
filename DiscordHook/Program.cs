@@ -10,8 +10,7 @@ using static DiscordHook.Utility;
  *  I am not responsible for any missuses of this code                  *
  *  this is purely for educational purposes dont use it on anyones pc   *
  *  without permission.                                                 *    
- *  I'm still a cs student in my 2nd year so the code quality might not *
- *  be that good but it will do the job :)                              *
+ *  code quality might not be that good but it will do the job :)       *                          *
  ************************************************************************/
 
 namespace DiscordHook
